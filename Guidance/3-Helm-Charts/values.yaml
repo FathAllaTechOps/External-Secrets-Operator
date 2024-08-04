@@ -1,0 +1,54 @@
+namespace: dev
+
+serviceAccount:
+  name: external-secrets-sa
+  annotations:
+    eks.amazonaws.com/role-arn: <IAM_ROLE_ARN> # Replace with actual IAM role ARN
+
+secretStore:
+  name: External-Secret-store
+  region: eu-west-1
+  serviceAccountName: external-secrets-sa
+
+externalSecrets:
+  - name: my-secret
+    refreshInterval: 10s
+    secretStoreRefName: External-Secret-store
+    secretStoreRefKind: SecretStore
+    targetSecretName: database-creds
+    secretType: Opaque
+    data:
+      - secretKey: username
+        remoteKey: prod/db
+        property: username
+      - secretKey: password
+        remoteKey: prod/db
+        property: password
+  - name: another-secret
+    refreshInterval: 10s
+    secretStoreRefName: External-Secret-store
+    secretStoreRefKind: SecretStore
+    targetSecretName: another-database-creds
+    secretType: Opaque
+    data:
+      - secretKey: api-key
+        remoteKey: prod/api
+        property: key
+      - secretKey: api-secret
+        remoteKey: prod/api
+        property: secret
+
+nginxPod:
+  name: nginx-pod
+  namespace: external-secrets
+  image: nginx:latest
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "250m"
+    limits:
+      memory: "128Mi"
+      cpu: "500m"
+  secretNames:
+    - database-creds
+    - another-database-creds
