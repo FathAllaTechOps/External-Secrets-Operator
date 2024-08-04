@@ -91,7 +91,7 @@ variable "external-secrets-operator-config" {
     helm_values_file        = optional(list(string))
   })
   default = {
-    enable                  = false
+    enable                  = true
     helmChartVersion        = "0.10.0"
     helm_values_file        = []
   }
