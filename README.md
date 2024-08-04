@@ -110,3 +110,10 @@ resource "helm_release" "external-secrets-operator" {
   values       = lookup(var.external-secrets-operator-config, "helm_values_file")
 }
 ```
+## Usage
+
+Follow the examples in the examples directory to configure the operator for your environment.
+
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
