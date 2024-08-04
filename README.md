@@ -8,6 +8,8 @@ The External Secrets Operator syncs secrets from external stores like AWS Secret
 - Automatic secret synchronization
 - Supports AWS Secrets Manager, Azure Key Vault, and HashiCorp Vault
 
+![Diagram of the External Secrets Operator](images/expernal-secret-operator.jpg)
+
 ## Prerequisites
 
 - Kubernetes cluster
